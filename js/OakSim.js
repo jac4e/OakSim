@@ -228,20 +228,18 @@ var CurContext = new ( function()
 		Context.Registers.Update();
 		document.getElementById("registers").innerHTML =
 			"<table>"
-			+ "<thead><tr><th>Register</th><th>Value</th></tr></thead>"
+			+ "<thead><tr><th>Register</th><th>Hex</th><th>Decimal</th><th>Character</th></tr></thead>"
 			+ "<tbody>"
 			+ Context.Registers.Entries.reduce(
 				function(RegList, CurRegister)
 				{
 					return RegList
-						+ "<tr><td>"
-						+ CurRegister.Name
-						+ "</td>"
-						+ "<td>"
-						+ ( CurRegister.Changed ? "<span style=\"color:#f4bf75;\">" : "" )
-						+ CurRegister.Value.toString(16)
-						+ ( CurRegister.Changed ? "</span>" : "" )
-						+ "</td></tr>";
+						+ "<tr>"
+						+ "<td>" + CurRegister.Name + "</td>"
+						+ "<td>" + ( CurRegister.Changed ? "<span style=\"color:#f4bf75;\">" : "" ) + CurRegister.Value.toString(16) + ( CurRegister.Changed ? "</span>" : "" ) + "</td>"
+                        + "<td>" + CurRegister.Value + "</td>"
+                        + "<td>" + String.fromCharCode(CurRegister.Value) + "</td>"
+                        + "</tr>";
 				},
 				""
 			)
