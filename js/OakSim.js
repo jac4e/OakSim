@@ -1,12 +1,10 @@
-function HexByte(Value)
-{
+function HexByte(Value) {
 	Value = Value < 0 ? Value += 0x100 : Value;
 	var Str = "00" + Value.toString(16).toUpperCase();
 	return Str.slice(-2);
 }
 
-var RegisterType =
-{
+var RegisterType = {
 	uint32: 0,
 	int32: 1,
 	uint64: 2,
@@ -16,14 +14,11 @@ var RegisterType =
 };
 
 
-var CurContext = new ( function()
-{
+var CurContext = new (function() {
 	var Context = this;
-	this.Registers = new ( function()
-	{
+	this.Registers = new ( function() {
 		this.Entries = [];
-		this.Update = function()
-		{
+		this.Update = function() {
 			this.Entries.forEach(
 				function(CurRegister)
 				{
@@ -227,7 +222,7 @@ var CurContext = new ( function()
 	{
 		Context.Registers.Update();
 		document.getElementById("registers").innerHTML =
-			"<table>"
+			"<table style='justify-content: center'>"
 			+ "<thead><tr><th>Register</th><th>Hex</th><th>Decimal</th><th>Character</th></tr></thead>"
 			+ "<tbody>"
 			+ Context.Registers.Entries.reduce(
@@ -238,7 +233,7 @@ var CurContext = new ( function()
 						+ "<td>" + CurRegister.Name + "</td>"
 						+ "<td>" + ( CurRegister.Changed ? "<span style=\"color:#f4bf75;\">" : "" ) + CurRegister.Value.toString(16) + ( CurRegister.Changed ? "</span>" : "" ) + "</td>"
                         + "<td>" + CurRegister.Value + "</td>"
-                        + "<td>" + String.fromCharCode(CurRegister.Value) + "</td>"
+                        + "<td>" + (CurRegister.Value === 0) ? "␀" : String.fromCharCode(CurRegister.Value) + "</td>"
                         + "</tr>";
 				},
 				""
