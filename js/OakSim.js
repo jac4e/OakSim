@@ -4,6 +4,14 @@ function HexByte(Value) {
 	return Str.slice(-2);
 }
 
+let convertChar = (char) => {
+	if (char === 0) {
+		return '␀';
+	}
+
+	return String.fromCharCode(char);
+}
+
 var RegisterType = {
 	uint32: 0,
 	int32: 1,
@@ -226,20 +234,19 @@ var CurContext = new (function() {
 			+ "<thead><tr><th>Register</th><th>Hex</th><th>Decimal</th><th>Character</th></tr></thead>"
 			+ "<tbody>"
 			+ Context.Registers.Entries.reduce(
-				function(RegList, CurRegister)
-				{
-					return RegList
-						+ "<tr>"
-						+ "<td>" + CurRegister.Name + "</td>"
-						+ "<td>" + ( CurRegister.Changed ? "<span style=\"color:#f4bf75;\">" : "" ) + CurRegister.Value.toString(16) + ( CurRegister.Changed ? "</span>" : "" ) + "</td>"
-                        + "<td>" + CurRegister.Value + "</td>"
-                        + "<td>" + (CurRegister.Value === 0) ? "␀" : String.fromCharCode(CurRegister.Value) + "</td>"
-                        + "</tr>";
+				function(RegList, CurRegister) {
+					return RegList + `
+					<tr>
+						<td>${CurRegister.Name}</td>
+						<td>${CurRegister.Changed ? "<span style=\"color:#f4bf75;\">" : "" } ${CurRegister.Value.toString(16)} ${CurRegister.Changed ? "</span>" : ""}</td>
+						<td>${CurRegister.Value}</td>
+						<td>${convertChar(CurRegister.Value)}</td>
+					</tr>`;
 				},
 				""
-			)
-			+ "</tbody><table>";
+			) + "</tbody><table>";
 	};
+
 	this.Reset = function()
 	{
 		Context.Registers.Reset();
