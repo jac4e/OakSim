@@ -1,18 +1,5 @@
-function HexByte(Value) {
-	Value = Value < 0 ? Value += 0x100 : Value;
-	var Str = "00" + Value.toString(16).toUpperCase();
-	return Str.slice(-2);
-}
-
-let convertChar = (char) => {
-	if (char === 0) {
-		return '␀';
-	}
-
-	return String.fromCharCode(char);
-}
-
-var RegisterType = {
+const convertChar = (char) => { return (char === 0) ? '␀' : String.fromCharCode(char) }
+const RegisterType = {
 	uint32: 0,
 	int32: 1,
 	uint64: 2,
@@ -20,7 +7,6 @@ var RegisterType = {
 	float32: 4,
 	float64: 5
 };
-
 
 var CurContext = new (function() {
 	var Context = this;
