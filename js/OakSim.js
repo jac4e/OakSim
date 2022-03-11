@@ -376,6 +376,7 @@ var CurContext = new (function() {
 			document.getElementById("RunDelay").readOnly = true;
 			document.getElementById("StepButton").disabled = true;
 			var Delay = document.getElementById("RunDelay").valueAsNumber;
+			Delay = 1000*(1/Delay)
 			CurContext.RunInterval = setInterval(
 				function()
 				{
